@@ -30,6 +30,7 @@ public class CRUDHelper {
     while (cursor.hasNext()) {
       PrintHelper.printSingleCommonAttributes(cursor.next());
     }
+    System.out.println();
   }
 
   /**
@@ -44,6 +45,7 @@ public class CRUDHelper {
     while (cursor.hasNext()) {
       PrintHelper.printAllAttributes(cursor.next());
     }
+    System.out.println();
   }
 
   /**
@@ -60,6 +62,7 @@ public class CRUDHelper {
     while (cursor.hasNext()) {
       PrintHelper.printAllAttributes(cursor.next());
     }
+    System.out.println();
   }
 
   /**
@@ -76,6 +79,7 @@ public class CRUDHelper {
     ))) {
       PrintHelper.printProductCountInCategory(document);
     }
+    System.out.println();
   }
 
   /**
