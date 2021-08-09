@@ -54,6 +54,7 @@ public class Driver {
       MongoCollection<Document> collection = mongoDatabase.getCollection("products");
 
       //clear mongodb products collection
+      //this avoids repeated inserts when the app runs
       Bson delFilter = ne("_id",null);
       collection.deleteMany(delFilter);
 
