@@ -90,6 +90,7 @@ public class Driver {
 
       // Display wired headphones
       CRUDHelper.displayWiredHeadphones(collection);
+      stmt.close();
     } catch (Exception ex) {
       System.out.println("Got Exception.");
       ex.printStackTrace();
@@ -100,6 +101,7 @@ public class Driver {
       if(null != mongoClient)
         mongoClient.close();
     }
+
   }
 
   public static void processElectronicsItems(Connection sqlConnection, Statement stmt,
@@ -130,5 +132,6 @@ public class Driver {
       }
       electronicsItems.add(electronicsItem);
     }
+    resultSet.close();
   }
 }
