@@ -50,6 +50,8 @@ public class Driver {
       sqlConnection = DriverManager.getConnection(rdbmsUrl, rdmsUser, rdbmsPassword);
 
       mongoClient = MongoClients.create(mongodbUrl);
+
+      //get electronicsstore db/products collection from mongodb
       MongoDatabase mongoDatabase = mongoClient.getDatabase("electronicsstore");
       MongoCollection<Document> collection = mongoDatabase.getCollection("products");
 
@@ -58,10 +60,11 @@ public class Driver {
       Bson delFilter = ne("_id",null);
       collection.deleteMany(delFilter);
 
-      // Import data into MongoDb
+      //create list to hold rdbms records
       List<Document> electronicsItems = new ArrayList<Document>();
       Statement stmt = sqlConnection.createStatement();
 
+      //add mobiles,cameras,headphones records from rdbms to electronicsItems list
       processElectronicsItems(sqlConnection, stmt, electronicsItems, mobilesQuery,
           Electronics.MOBILE.ordinal());
       processElectronicsItems(sqlConnection, stmt, electronicsItems, camerasQuery,
@@ -70,7 +73,7 @@ public class Driver {
           Electronics.HEADPHONE
               .ordinal());
 
-      //insert electronics items into mongodb
+      //insert electronics items list into mongodb
       collection.insertMany(electronicsItems);
 
       // List all products in the inventory
@@ -92,8 +95,10 @@ public class Driver {
       ex.printStackTrace();
     } finally {
       // Close Connections
-      sqlConnection.close();
-      mongoClient.close();
+      if(null != sqlConnection)
+        sqlConnection.close();
+      if(null != mongoClient)
+        mongoClient.close();
     }
   }
 
