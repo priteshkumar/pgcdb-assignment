@@ -57,7 +57,7 @@ public class Driver {
 
       //clear mongodb products collection
       //this avoids repeated inserts when the app runs
-      Bson delFilter = ne("_id",null);
+      Bson delFilter = ne("_id", null);
       collection.deleteMany(delFilter);
 
       //create list to hold rdbms records
@@ -96,14 +96,21 @@ public class Driver {
       ex.printStackTrace();
     } finally {
       // Close Connections
-      if(null != sqlConnection)
+      if (null != sqlConnection) {
         sqlConnection.close();
-      if(null != mongoClient)
+      }
+      if (null != mongoClient) {
         mongoClient.close();
+      }
     }
 
   }
 
+  /*
+  helper function to query mobiles/headphones/cameras records from rdbms
+  converts records to mongodb Document, adds them to local electronicsitems
+  document list
+   */
   public static void processElectronicsItems(Connection sqlConnection, Statement stmt,
       List<Document> electronicsItems, String itemQuery, int itemType) throws SQLException {
 
